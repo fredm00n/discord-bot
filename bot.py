@@ -4,12 +4,13 @@ import os
 import random
 
 from collections import defaultdict
+from dotenv import load_dotenv
 
+load_dotenv()
 
-TOKEN = 'MTA0NzQ5Nzc4OTYzMTkwOTkyMA.GqaBhz.G3VHbYhrJV0U_8J8d6ACfqV-0TAcFh2JeGw8w0'
+TOKEN = os.getenv('TOKEN')
+OPENAI_KEY = os.getenv('OPENAI_KEY')
 GUILD = 'alfr3do'
-OPENAI_KEY ='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'
-
 openai.api_key = OPENAI_KEY
 MODEL="text-davinci-003"
 
