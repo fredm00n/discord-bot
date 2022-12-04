@@ -1,4 +1,4 @@
-print('hello world mes couilles')
+print('hello world mes couilles 2')
 
 import discord
 import openai
