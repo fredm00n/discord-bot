@@ -139,6 +139,7 @@ async def on_message(message):
         if result != "":
             last_ai_request[source].update(prompt, result, message.author.name)
             print(result)
+            print('END OF PROMPT -------------')
             await message.channel.send('{0}'.format(result))
     elif type(message.channel) is discord.DMChannel:
         prompt = data
