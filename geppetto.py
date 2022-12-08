@@ -10,7 +10,7 @@ load_dotenv()
 
 # Discord configuration
 DISCORD_SERVER = 'alfr3do'
-DISCORD_TOKEN = os.getenv('TOKEN')
+DISCORD_TOKEN = os.getenv('GEPPETTO_DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.message_content = True
 intents.typing = True
@@ -29,7 +29,7 @@ openai.api_key = OPENAI_TOKEN
 openai.Model.list()
 
 
-# Connection to the app
+# Connection to the Discord app
 @client.event
 async def on_ready():
   for guild in client.guilds:
