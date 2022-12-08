@@ -52,7 +52,7 @@ async def on_message(message):
     return
 
   if message.content.startswith('troudbal'):
-    await message.channel.send('Hello!')
+    await message.channel.send('Hello!', reply=message)
 
 
 client.run(DISCORD_TOKEN)
