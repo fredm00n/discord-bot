@@ -140,7 +140,7 @@ async def on_message(message):
             last_ai_request[source].update(prompt, result, message.author.name)
             print(result)
             print('END OF PROMPT -------------')
-            await message.channel.send('{0}'.format(result))
+            await message.reply('{0}'.format(result))
     elif type(message.channel) is discord.DMChannel:
         prompt = data
         ai_prompt = "{0}\nYou: {1}\nTroudbal:".format(last_ai_request[source].get(), data)
