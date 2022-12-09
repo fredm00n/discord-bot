@@ -34,10 +34,6 @@ openai.api_key = OPENAI_TOKEN
 openai.Model.list()
 
 
-# Initialise the members variables
-members = {} # storage dictionary
-memberslist = '' # string for the console
-
 # Connection to the Discord app
 @client.event
 async def on_ready():
