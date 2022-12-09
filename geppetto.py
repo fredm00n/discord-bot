@@ -12,7 +12,7 @@ load_dotenv()
 # Discord configuration
 DISCORD_SERVER = 'alfr3do'
 DISCORD_TOKEN = os.getenv('GEPPETTO_DISCORD_TOKEN')
-GEPPETTO_KEYWORD = os.getenv('GEPPETTO_KEYWORD')
+#deprecated GEPPETTO_KEYWORD = os.getenv('GEPPETTO_KEYWORD') 
 TYPING_DURATION = 3
 intents = discord.Intents.default()
 intents.guilds = True
@@ -34,28 +34,30 @@ openai.api_key = OPENAI_TOKEN
 openai.Model.list()
 
 
-# Initialise the members dictionary
-members = {}
-memberslist = ''
-
 # Connection to the Discord app
-# Initialisation of the members list
 @client.event
 async def on_ready():
-  global memberslist 
-
   for guild in client.guilds:
     if guild.name == DISCORD_SERVER:
       break
+  
+  # Global vars
+  global MEMBERS
+  global MEMBERS_STRING
+  global MENTION_STRING
+  MEMBERS = {}
+  MEMBERS_STRING = ''
 
-  print(f'---\nSuccess! {client.user} is now connected to the following server: {guild.name} (ID = {guild.id})\n---')
+  print(f'---\nSuccess! {client.user} is now connected to the following server: {guild.name} (ID = {guild.id})')
+  MENTION_STRING = '<@{}>'.format(client.user.id)
+  print(f'Geppetto USER ID:{MENTION_STRING}\n---')
 
   print(f'Retrieving members list...')
   for member in guild.members:
-    members[member.id] = member.name
-    memberslist += '{0} ({1}), '.format(member.name,member.id)
+    MEMBERS[member.id] = member.name
+    MEMBERS_STRING += '{0} ({1}), '.format(member.name,member.id)
   
-  print(f'{memberslist}\n---')
+  print(f'{MEMBERS_STRING}\n---')
 
 
 #  members = '\n - '.join([member.name for member in guild.members])
@@ -70,16 +72,18 @@ async def on_message(message):
     print(f'OUTBOUND msg in channel: #{message.channel}')
     return
 
-  print(f'INBOUND msg in channel: #{message.channel}')
-  if GEPPETTO_KEYWORD in message.content.lower():
+  print(f'INBOUND msg in channel: #{message.channel} {message.content}')
+  if MENTION_STRING in message.content.lower():
+    print(f'MENTION in: #{message.channel}')
     async with message.channel.typing():
       await asyncio.sleep(TYPING_DURATION)
       await message.reply('Hello!')
 
   if message.content.startswith('!members'):
-      async with message.channel.typing():
-        await asyncio.sleep(TYPING_DURATION)
-        await message.reply(members)
+    print(f'!MEMBERS cmd in channel: #{message.channel}')
+    async with message.channel.typing():
+      await asyncio.sleep(TYPING_DURATION)
+      await message.reply(MEMBERS_STRING)
 
 
 client.run(DISCORD_TOKEN)

@@ -1,3 +1,4 @@
+import asyncio
 import discord
 import openai
 import os
@@ -140,7 +141,9 @@ async def on_message(message):
             last_ai_request[source].update(prompt, result, message.author.name)
             print(result)
             print('END OF PROMPT -------------')
-            await message.reply('{0}'.format(result))
+            async with message.channel.typing():
+                await asyncio.sleep(3)
+                await message.reply('{0}'.format(result))
     elif type(message.channel) is discord.DMChannel:
         prompt = data
         ai_prompt = "{0}\nYou: {1}\nTroudbal:".format(last_ai_request[source].get(), data)

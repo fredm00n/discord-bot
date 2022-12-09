@@ -1,0 +1,5 @@
+asyncio
+discord
+openai
+os
+random
