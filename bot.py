@@ -13,7 +13,8 @@ TOKEN = os.getenv('TOKEN')
 OPENAI_KEY = os.getenv('OPENAI_KEY')
 GUILD = 'alfr3do'
 openai.api_key = OPENAI_KEY
-MODEL="text-davinci-003"
+#MODEL="text-davinci-003"
+MODEL="davinci:ft-personal-2022-12-09-10-47-31"
 
 
 #client = discord.Client()
